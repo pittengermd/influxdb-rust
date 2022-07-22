@@ -14,7 +14,8 @@
 //!
 //! assert_eq!(client.database_name(), "test");
 //! ```
-
+#![deny(warnings)]
+#![warn(clippy::all, clippy::restriction, clippy::pedantic, clippy::nursery)]
 use futures::prelude::*;
 use surf::{self, Client as SurfClient, RequestBuilder, StatusCode};
 
@@ -236,7 +237,7 @@ impl Client {
         Ok(s)
     }
 
-    fn auth_if_needed(&self, rb: RequestBuilder) -> RequestBuilder {
+    pub fn auth_if_needed(&self, rb: RequestBuilder) -> RequestBuilder {
         if let Some(ref token) = self.token {
             rb.header("Authorization", format!("Token {}", token))
         } else {

@@ -143,15 +143,15 @@ impl Client {
         let url = &format!("{}/query", &self.url);
         let mut parameters = self.parameters.as_ref().clone();
         parameters.insert("q", read_query);
-        let request = self
-            .client
-            .get(url)
-            .query(&parameters)
-            .map_err(|err| Error::UrlConstructionError {
-                error: err.to_string(),
-            })?
-            .build();
+        let request_builder =
+            self.client
+                .get(url)
+                .query(&parameters)
+                .map_err(|err| Error::UrlConstructionError {
+                    error: err.to_string(),
+                })?;
 
+        let request = self.auth_if_needed(request_builder).build();
         let mut res = self
             .client
             .send(request)

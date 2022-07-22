@@ -14,8 +14,6 @@
 //!
 //! assert_eq!(client.database_name(), "test");
 //! ```
-#![deny(warnings)]
-#![warn(clippy::all, clippy::restriction, clippy::pedantic, clippy::nursery)]
 use futures::prelude::*;
 use surf::{self, Client as SurfClient, RequestBuilder, StatusCode};
 
